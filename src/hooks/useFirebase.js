@@ -37,13 +37,15 @@ const useFirebase = () => {
 
 
     //
-    const loginUser = (email, password) => {
+    const loginUser = (email, password, location, history) => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                // ...
+                // new
+                const destination = location?.state?.from || '/'
+                history.replace(destination);
                 setAuthError('');
 
             })
