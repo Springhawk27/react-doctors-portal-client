@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 
 
 
@@ -14,9 +14,12 @@ const useFirebase = () => {
 
     const auth = getAuth();
 
+    const googleProvider = new GoogleAuthProvider();
 
 
-    const registerUser = (email, password) => {
+
+
+    const registerUser = (email, password, name, history) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -24,6 +27,23 @@ const useFirebase = () => {
                 const user = userCredential.user;
                 // ...
                 setAuthError('');
+
+                const newUser = { email, displayName: name }
+                setUser(newUser);
+                // send name to firebase after creation
+
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                }).then(() => {
+                    // Profile updated!
+                    // ...
+                }).catch((error) => {
+                    // An error occurred
+                    // ...
+                });
+
+                //
+                history.replace('/')
 
             })
             .catch((error) => {
@@ -52,6 +72,40 @@ const useFirebase = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                setAuthError(errorMessage);
+
+            })
+            .finally(() => setIsLoading(false));
+
+    };
+
+    const signInWithGoogle = (location, history) => {
+        setIsLoading(true);
+
+        signInWithPopup(auth, googleProvider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // ...
+
+
+                setAuthError('');
+
+            }).catch((error) => {
+
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+
+
                 setAuthError(errorMessage);
 
             })
@@ -111,6 +165,7 @@ const useFirebase = () => {
         registerUser,
         logout,
         loginUser,
+        signInWithGoogle,
 
     }
 
