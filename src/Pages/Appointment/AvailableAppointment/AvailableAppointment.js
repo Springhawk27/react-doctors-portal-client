@@ -49,8 +49,12 @@ const AvailableAppointment = ({ date }) => {
     return (
         <Container>
             <Typography sx={{ fontSize: 24, color: '#1CC6C3', mt: 2 }}>Available Appointments on {date.toDateString()}</Typography>
-            {bookingSuccess && <Alert severity="success">Booked successfully</Alert>
+            {bookingSuccess && <Alert style={{
+                margin: 'auto',
+                width: '50%',
+            }} severity="success">Booked successfully</Alert>
             }
+
 
             <Grid container spacing={2} sx={{ my: 4 }}>
                 {bookings.map(booking => <Booking

@@ -2,7 +2,8 @@ import { Container, Grid, TextField, Typography, Button, CircularProgress, Alert
 import React, { useState } from 'react';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-import login from '../../../images/login.png'
+import login from '../../../images/login.png';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const Login = () => {
 
@@ -74,7 +75,7 @@ const Login = () => {
                         }
                     </form>
                     <p>----------------------------</p>
-                    <Button onClick={handleGoogleSignIn} variant="contained" >Google Sign In</Button>
+                    <Button sx={{ backgroundColor: '#3578E7' }} onClick={handleGoogleSignIn} variant="contained"><GoogleIcon sx={{ mr: 1, color: 'lime' }} /> Sign in with Google </Button>
 
 
                 </Grid>
