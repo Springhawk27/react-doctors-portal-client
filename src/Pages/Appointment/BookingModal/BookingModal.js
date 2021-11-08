@@ -45,7 +45,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBooki
         const appointment = {
             ...bookingInfo,
             serviceName: name,
-            date: date.toLocaleDateString(),
+            date: date.toDateString(),
             time,
 
         }
