@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken } from "firebase/auth";
 
 
 
@@ -11,6 +11,10 @@ const useFirebase = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+
+    // new
+    const [admin, setAdmin] = useState(false);
+    const [token, setToken] = useState('');
 
     const auth = getAuth();
 
@@ -139,6 +143,11 @@ const useFirebase = () => {
 
                 // const uid = user.uid;
                 setUser(user);
+                getIdToken(user)
+                    .then(idToken => {
+                        // console.log(idToken);
+                        setToken(idToken);
+                    })
             } else {
                 setUser({});
             }
@@ -147,7 +156,12 @@ const useFirebase = () => {
         return () => unsubscribe;
     }, [])
 
-
+    // new
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
 
 
 
@@ -176,6 +190,8 @@ const useFirebase = () => {
 
     return {
         user,
+        admin,
+        token,
         isLoading,
         authError,
         registerUser,
