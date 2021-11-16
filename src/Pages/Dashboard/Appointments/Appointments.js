@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 const Appointments = ({ date }) => {
     const date2 = date.toDateString();
@@ -14,7 +15,7 @@ const Appointments = ({ date }) => {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        const url = `http://localhost:5000/appointments?email=${user.email}&date=${date2}`
+        const url = `https://hidden-scrubland-58450.herokuapp.com/appointments?email=${user.email}&date=${date2}`
         fetch(url, {
             headers: {
                 'authorization': `Bearer ${token}`
@@ -22,7 +23,7 @@ const Appointments = ({ date }) => {
         })
             .then(res => res.json())
             .then(data => setAppointments(data))
-    }, [date2])
+    }, [date2, user.email, token])
     return (
         <div>
             <h2>Appointments: {appointments.length}</h2>
@@ -48,7 +49,10 @@ const Appointments = ({ date }) => {
                                 </TableCell>
                                 <TableCell align="right">{row.serviceName}</TableCell>
                                 <TableCell align="right">{row.time}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
+                                <TableCell align="right">{row.payment ?
+                                    'Paid' :
+                                    <Link to={`/dashboard/payment/${row._id}`}><button>Pay</button></Link>
+                                }</TableCell>
 
                             </TableRow>
                         ))}

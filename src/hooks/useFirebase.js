@@ -28,7 +28,7 @@ const useFirebase = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
+                // const user = userCredential.user;
                 // ...
                 setAuthError('');
 
@@ -52,7 +52,7 @@ const useFirebase = () => {
 
             })
             .catch((error) => {
-                const errorCode = error.code;
+                // const errorCode = error.code;
                 const errorMessage = error.message;
                 setAuthError(errorMessage);
                 // ..
@@ -67,7 +67,7 @@ const useFirebase = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
+                // const user = userCredential.user;
                 // new
                 const destination = location?.state?.from || '/'
                 history.replace(destination);
@@ -75,7 +75,7 @@ const useFirebase = () => {
 
             })
             .catch((error) => {
-                const errorCode = error.code;
+                // const errorCode = error.code;
                 const errorMessage = error.message;
                 setAuthError(errorMessage);
 
@@ -90,8 +90,8 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
                 // ...
@@ -105,12 +105,12 @@ const useFirebase = () => {
             }).catch((error) => {
 
                 // Handle Errors here.
-                const errorCode = error.code;
+                // const errorCode = error.code;
                 const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.email;
+                // const email = error.email;
                 // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
+                // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
 
 
@@ -154,11 +154,11 @@ const useFirebase = () => {
             setIsLoading(false);
         });
         return () => unsubscribe;
-    }, [])
+    }, [auth])
 
     // new
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://hidden-scrubland-58450.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))
     }, [user.email])
@@ -178,7 +178,7 @@ const useFirebase = () => {
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        fetch('http://localhost:5000/users', {
+        fetch('https://hidden-scrubland-58450.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

@@ -22,7 +22,7 @@ const style = {
 };
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
-    const { name, time } = booking;
+    const { name, time, price } = booking;
 
     // new
     const { user } = useAuth();
@@ -47,11 +47,12 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBooki
             serviceName: name,
             date: date.toDateString(),
             time,
+            price,
 
         }
         // console.log(appointment);
         // send to the server
-        fetch('http://localhost:5000/appointments', {
+        fetch('https://hidden-scrubland-58450.herokuapp.com/appointments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

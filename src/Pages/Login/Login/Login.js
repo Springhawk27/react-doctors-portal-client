@@ -32,9 +32,11 @@ const Login = () => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle(location, history);
+
     }
 
     return (
+
         <Container>
             <Grid container spacing={2}>
                 <Grid sx={{ mt: 12 }} item xs={12} md={6}>
