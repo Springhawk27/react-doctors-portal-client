@@ -20,7 +20,7 @@ const CheckoutForm = ({ appointment }) => {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://hidden-scrubland-58450.herokuapp.com/create-payment-intent', {
             method: 'POSt',
             headers: {
                 'content-type': 'application/json'
@@ -102,7 +102,7 @@ const CheckoutForm = ({ appointment }) => {
                 last4: paymentIntent.last4,
                 transaction: paymentIntent.client_secret.slice('_secret')[0]
             }
-            const url = `http://localhost:5000/appointments/${_id}`;
+            const url = `https://hidden-scrubland-58450.herokuapp.com/appointments/${_id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {

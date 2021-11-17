@@ -1,6 +1,6 @@
 import { Container, Grid, TextField, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png'
 
@@ -10,7 +10,7 @@ const Register = () => {
     const { user, registerUser, isLoading, authError } = useAuth();
 
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleOnChange = e => {
         const field = e.target.name;
@@ -28,7 +28,7 @@ const Register = () => {
             return;
         }
 
-        registerUser(loginData.email, loginData.password, loginData.name, history);
+        registerUser(loginData.email, loginData.password, loginData.name, navigate);
 
         // alert('Submitted');
         e.preventDefault();

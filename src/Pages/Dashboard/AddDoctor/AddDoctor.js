@@ -23,7 +23,7 @@ const AddDoctor = () => {
 
 
 
-        fetch('http://localhost:5000/doctors', {
+        fetch('https://hidden-scrubland-58450.herokuapp.com/doctors', {
             method: 'POST',
             body: formData
         })

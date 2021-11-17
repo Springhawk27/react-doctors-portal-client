@@ -1,7 +1,7 @@
 import './App.css';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from "react-router-dom";
 import Home from './Pages/Home/Home/Home';
@@ -19,30 +19,46 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Router>
-          <Switch>
-            <PrivateRoute path="/appointment">
-              <Appointment />
-            </PrivateRoute>
-            <PrivateRoute path="/dashboard">
-              <Dashboard />
-            </PrivateRoute>
-            <Route path="/users">
-              <Home />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
+          <Routes>
+            <Route
+              path="/appointment"
+              element={
+                <PrivateRoute>
+                  <Appointment />
+                </PrivateRoute>}>
 
-            <Route path="/">
-              <Home />
             </Route>
-          </Switch>
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>}>
+
+            </Route>
+            {/* <PrivateRoute path="/dashboard">
+              <Dashboard />
+            </PrivateRoute> */}
+            <Route path="/users" element={<Home />}>
+
+            </Route>
+            <Route path="/home" element={<Home />}>
+
+            </Route>
+            <Route path="/login" element={<Login />}>
+
+            </Route>
+            <Route path="/register" element={<Register />
+            }>
+            </Route>
+            {/* <Route path="/register">
+              <Register />
+            </Route> */}
+
+            <Route path="/" element={<Home />}>
+
+            </Route>
+          </Routes>
         </Router>
       </AuthProvider>
 

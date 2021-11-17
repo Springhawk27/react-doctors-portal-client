@@ -18,10 +18,10 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 
 import {
-    Switch,
+    Routes,
     Route,
     Link,
-    useRouteMatch
+    // useRouteMatch
 } from "react-router-dom";
 import DashboardHome from '../DashboardHome/DashboardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
@@ -39,7 +39,7 @@ function Dashboard(props) {
     // neww
     // const [date, setDate] = React.useState(new Date());
     /// newwww
-    let { path, url } = useRouteMatch();
+    // let { path, url } = useRouteMatch();
 
     const { admin } = useAuth();
 
@@ -57,13 +57,18 @@ function Dashboard(props) {
                 to="/appointment"
             ><Button color="inherit">Appointment</Button>
             </Link>
-            <Link
+            {/* <Link
                 style={{ textDecoration: 'none', color: 'black', }}
                 to={`${url}`}
             ><Button color="inherit">Dashboard</Button>
+            </Link> */}
+            <Link
+                style={{ textDecoration: 'none', color: 'black', }}
+                to="/dashboard"
+            ><Button color="inherit">Dashboard</Button>
             </Link>
             {admin && <Box>
-                <Link
+                {/* <Link
                     style={{ textDecoration: 'none', color: 'black', }}
                     to={`${url}/makeAdmin`}
                 ><Button color="inherit">Make Admin</Button>
@@ -71,6 +76,16 @@ function Dashboard(props) {
                 <Link
                     style={{ textDecoration: 'none', color: 'black', }}
                     to={`${url}/addDoctor`}
+                ><Button color="inherit">Add Doctor</Button>
+                </Link> */}
+                <Link
+                    style={{ textDecoration: 'none', color: 'black', }}
+                    to={`/dashboard/makeAdmin`}
+                ><Button color="inherit">Make Admin</Button>
+                </Link>
+                <Link
+                    style={{ textDecoration: 'none', color: 'black', }}
+                    to={`/dashboard/addDoctor`}
                 ><Button color="inherit">Add Doctor</Button>
                 </Link>
             </Box>}
@@ -163,8 +178,8 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Switch>
-                    <Route exact path={path}>
+                <Routes>
+                    {/* <Route exact path={path}>
                         <DashboardHome></DashboardHome>
                     </Route>
                     <Route path={`${path}/payment/:appointmentId`}>
@@ -175,8 +190,14 @@ function Dashboard(props) {
                     </AdminRoute>
                     <AdminRoute path={`${path}/addDoctor`}>
                         <AddDoctor></AddDoctor>
-                    </AdminRoute>
-                </Switch>
+                    </AdminRoute> */}
+                    {/* <Route exact path={path}> */}
+
+                    {/* <AdminRoute path={`/dashboard/addDoctor`}>
+
+                        <AddDoctor></AddDoctor>
+                    </AdminRoute> */}
+                </Routes>
 
 
             </Box>
